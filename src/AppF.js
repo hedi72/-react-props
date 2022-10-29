@@ -1,87 +1,55 @@
-import React, { Component } from "react";
-import "./App.css";
-import Person from "./Person";
+import React, { useEffect } from "react";
+import { useState } from "react";
+// import Person from "./Person";
+import PersonF from "./PersonF";
 
-export default class AppF extends Component {
-  constructor(props) {
-    console.log("i m constructeur");
-    super(props);
-    this.state = {
-      persons: [],
-      count: 0,
-      show: true,
+const AppF = () => {
+  const [person, setPerson] = useState([]);
+  const [count, setCount] = useState(0);
+  const [show, setShow] = useState(true);
+  useEffect(() => {
+    console.log("show was modified");
+  }, [show]);
+  useEffect(() => {
+    console.log("count was modified");
+  }, [count]);
+
+  useEffect(() => {
+    console.log("count was modified");
+    return () => {
+      console.log("useeffect clean person");
     };
-    this.conteur = 0;
-  }
-  //   incrementCount = () => {
-  //     this.conteur++;
-  //     console.log(this.conteur);
-  //   };
-  incrementCount = () => {
-    this.setState(
-      {
-        count: this.state.count + 1,
-      },
-      () => console.log(this.state.count)
-    );
+  }, []);
+  const incrementCount = () => {
+    setCount(count + 1);
   };
-  handlePersonAdd = (newPerson) =>
-    this.setState({
-      // persons:this.persons.push(newPerson)
-      // spereder operation
-      persons: [...this.state.persons, newPerson],
-    });
-  decrementCount = () => {
-    this.setState(
-      {
-        count: this.state.count - 1,
-      },
-      () => console.log(this.state.count)
-    );
+  const decrementCount = () => {
+    setCount(count - 1);
   };
-  resetCount = () => {
-    this.setState(
-      {
-        count: 0,
-      },
-      () => console.log(this.state.count)
-    );
+  const resetCount = () => {
+    setCount(0);
   };
+  const handlePersonAdd = (newPerson) => {
+    setPerson([...person, newPerson]);
+  };
+  return (
+    <div className="App">
+      {console.log("i am render methods")}
+      {/* if else */}
+      <h4>{count}</h4>
+      <button onClick={decrementCount}>-</button>
+      <button onClick={resetCount}>reset</button>
+      <button onClick={incrementCount}>+</button>
+      <button onClick={() => setShow(!show)}>Toggle</button>
+      <hr />
+      {show && <PersonF handlePersonAdd={handlePersonAdd} />}
+      <hr />
 
-  componentDidMount = () => {
-    console.log("App will Mount");
-  };
-  componentDidUpdate = () => {
-    console.log("did update");
-  };
-  render() {
-    return (
-      <div className="App">
-        {console.log("i am render methods")}
-        {/* if else */}
-        <h4>{this.state.count}</h4>
-        <button onClick={this.decrementCount}>-</button>
-        <button onClick={this.resetCount}>reset</button>
-        <button onClick={this.incrementCount}>+</button>
-        <button
-          onClick={() =>
-            this.setState({
-              show: !this.state.show,
-            })
-          }
-        >
-          Toggle
-        </button>
-        <hr />
-        {this.state.show && <Person handlePersonAdd={this.handlePersonAdd} />}
-        <hr />
+      {person.map((p, i) => (
+        <div key={i}>{p.nom}</div>
+      ))}
+    </div>
+  );
+};
 
-        {this.state.persons.map((person) => (
-          <div>{person.nom}</div>
-        ))}
-      </div>
-    );
-  }
-}
-
-// export default AppF
+export default AppF;
