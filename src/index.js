@@ -4,13 +4,15 @@ import "./index.css";
 // import App from './App';
 import reportWebVitals from "./reportWebVitals";
 // import AppC from "./AppC";
-import AppF from "./AppF";
+// import AppF from "./AppF";
+import AppRouter from "./AppRouter";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     {/* <AppC /> */}
-    <AppF />
+    {/* <AppF /> */}
+    <AppRouter />
   </React.StrictMode>
 );
 

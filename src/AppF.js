@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import "./App.css";
 // import Person from "./Person";
 import PersonF from "./PersonF";
 
